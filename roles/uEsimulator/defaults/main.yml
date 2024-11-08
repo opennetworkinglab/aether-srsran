@@ -1,0 +1,12 @@
+srs:
+  docker:
+    container:
+      ue_image: srsran/srs-ue:latest
+    network:
+      name: public_net
+
+  simulation: true
+  gnb:
+    ip: "172.20.0.2"
+  ue:
+    conf_file: roles/uEsimulator/templates/ue_zmq.conf

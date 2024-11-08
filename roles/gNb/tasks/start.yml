@@ -1,0 +1,36 @@
+---
+
+- name: pull {{ srs.docker.container.gnb_image }} image
+  community.docker.docker_image:
+    name: "{{ srs.docker.container.gnb_image }}"
+    source: pull
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name: remove /tmp/gnb_zmq.conf
+  file:
+    path: "/tmp/gnb_zmq.conf"
+    state: absent
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name : copy gnb config file to /tmp/gnb_zmq.conf
+  template:
+    src: "{{ ROOT_DIR }}/{{ srs.gnb.conf_file }}"
+    dest: /tmp/gnb_zmq.conf
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name: create {{ srs.docker.container.gnb_image }} containers
+  community.docker.docker_container:
+    name: "rfsim5g-srs-gnb"
+    image: "{{ srs.docker.container.gnb_image }}"
+    networks: 
+      - name: "{{ srs.docker.network.name }}"
+        #ipv4_address: "{{ srs.gnb.ip }}"
+    volumes:
+      - /tmp/gnb_zmq.conf:/opt/gnb_zmq.conf
+    state: started
+    detach: true
+  when: inventory_hostname in groups['srs_nodes']
+  become: true

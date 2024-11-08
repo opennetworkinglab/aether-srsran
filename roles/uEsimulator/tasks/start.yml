@@ -1,0 +1,66 @@
+---
+
+- name: check if simluation is enabled else abort
+  fail:
+    msg: "Simulation is not enabled"
+  when: srs.simulation == false
+
+- name: pull {{ srs.docker.container.ue_image }} image
+  community.docker.docker_image:
+    name: "{{ srs.docker.container.ue_image }}"
+    source: pull
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name: remove /tmp/ue_zmq.conf
+  file:
+    path: "/tmp/ue_zmq.conf"
+    state: absent
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name : copy ue_zmq config file to /tmp/ue_zmq.conf
+  template:
+    src: "{{ ROOT_DIR }}/{{ srs.ue.conf_file }}"
+    dest: /tmp/ue_zmq.conf
+  when: inventory_hostname in groups['srs_nodes']
+  become: true
+
+- name: create {{ srs.docker.container.ue_image }} containers
+  community.docker.docker_container:
+    name: "rfsim5g-srs-nr-ue"
+    image: "{{ srs.docker.container.ue_image }}"
+    networks: 
+      - name: "{{ srs.docker.network.name }}"
+        # ipv4_address: "{{ srs.ue.ip }}"
+    volumes:
+      - /tmp/ue_zmq.conf:/opt/ue_zmq.conf
+    devices:
+      - /dev/net/tun:/dev/net/tun  
+    privileged: true  
+    capabilities:
+    - NET_ADMIN
+    - NET_RAW
+    state: started
+    detach: true
+  when: inventory_hostname in groups['srs_nodes']
+  become: true  
+
+- pause:
+    seconds: 10
+
+#TODO: use ue_ip_pool for configuring default route for UE
+- name: add default route for UE
+  shell: |
+    docker exec rfsim5g-srs-nr-ue ip netns exec ue1 ip route add default via 172.250.0.1 dev tun_srsue
+  when: inventory_hostname in groups['srs_nodes'][0]
+
+- name: run ping command to check if the UE is running and show output
+  shell: |
+    docker exec rfsim5g-srs-nr-ue ip netns exec ue1 ping -c 5 192.168.250.1
+  register: uEsimPingOutput
+  when: inventory_hostname in groups['srs_nodes'][0]
+
+- debug:
+    var: uEsimPingOutput.stdout_lines
+  when: inventory_hostname in groups['srs_nodes'][0]

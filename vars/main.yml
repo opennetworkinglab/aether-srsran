@@ -1,0 +1,25 @@
+srs:
+  docker:
+    container:
+      gnb_image: srsran/srs-gnb:latest
+      ue_image: srsran/srs-nr-ue:latest
+    network:
+      data_iface: data
+      name: public_net
+      subnet: "172.20.0.0/16"
+      bridge:
+        name: rfsim5g-public
+  simulation: true
+  gnb:
+    conf_file: gnb_zmq.conf
+    ip: "172.20.0.2"
+  ue:
+    conf_file: ue_zmq.conf
+
+core:
+  upf:
+    ip_prefix: "192.168.252.0/24"
+    iface: "access"
+  amf:
+    ip: "172.16.248.6"
+
