@@ -1,7 +1,7 @@
-srs:
+srsran:
   docker:
     container:
-      gnb_image: srsran/srs-gnb:latest
+      gnb_image: srsran-gnb:latest
     network:
       name: public_net
   simulation: true

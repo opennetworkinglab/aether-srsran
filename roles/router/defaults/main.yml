@@ -1,4 +1,4 @@
-srs:
+srsran:
   docker:
     network:
       data_iface: data

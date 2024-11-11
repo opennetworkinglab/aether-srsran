@@ -1,7 +1,7 @@
-srs:
+srsran:
   docker:
     container:
-      ue_image: srsran/srs-ue:latest
+      ue_image: srsran-ue:latest
     network:
       name: public_net
 

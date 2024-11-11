@@ -1,7 +1,7 @@
 ---
 
 - name: provision docker
-  hosts: srs_nodes
+  hosts: srsran_nodes
   gather_facts: true
 
   vars_files:

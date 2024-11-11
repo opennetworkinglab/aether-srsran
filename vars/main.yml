@@ -1,8 +1,8 @@
-srs:
+srsran:
   docker:
     container:
-      gnb_image: srsran/srs-gnb:latest
-      ue_image: srsran/srs-nr-ue:latest
+      gnb_image: srsran-gnb:latest
+      ue_image: srsran-nr-ue:latest
     network:
       data_iface: data
       name: public_net

@@ -1,36 +1,36 @@
 ---
 
-- name: pull {{ srs.docker.container.gnb_image }} image
+- name: pull {{ srsran.docker.container.gnb_image }} image
   community.docker.docker_image:
-    name: "{{ srs.docker.container.gnb_image }}"
+    name: "{{ srsran.docker.container.gnb_image }}"
     source: pull
-  when: inventory_hostname in groups['srs_nodes']
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
 
 - name: remove /tmp/gnb_zmq.conf
   file:
     path: "/tmp/gnb_zmq.conf"
     state: absent
-  when: inventory_hostname in groups['srs_nodes']
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
 
 - name : copy gnb config file to /tmp/gnb_zmq.conf
   template:
-    src: "{{ ROOT_DIR }}/{{ srs.gnb.conf_file }}"
+    src: "{{ ROOT_DIR }}/{{ srsran.gnb.conf_file }}"
     dest: /tmp/gnb_zmq.conf
-  when: inventory_hostname in groups['srs_nodes']
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
 
-- name: create {{ srs.docker.container.gnb_image }} containers
+- name: create {{ srsran.docker.container.gnb_image }} containers
   community.docker.docker_container:
-    name: "rfsim5g-srs-gnb"
-    image: "{{ srs.docker.container.gnb_image }}"
+    name: "rfsim5g-srsran-gnb"
+    image: "{{ srsran.docker.container.gnb_image }}"
     networks: 
-      - name: "{{ srs.docker.network.name }}"
-        #ipv4_address: "{{ srs.gnb.ip }}"
+      - name: "{{ srsran.docker.network.name }}"
+        #ipv4_address: "{{ srsran.gnb.ip }}"
     volumes:
       - /tmp/gnb_zmq.conf:/opt/gnb_zmq.conf
     state: started
     detach: true
-  when: inventory_hostname in groups['srs_nodes']
+  when: inventory_hostname in groups['srsran_nodes']
   become: true

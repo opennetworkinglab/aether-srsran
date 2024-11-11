@@ -9,7 +9,7 @@
     value: '1'
     sysctl_set: true
     reload: true
-  when: inventory_hostname in groups['srs_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
 
 - name: set net.ipv4.conf.all.arp_ignore to 1
@@ -18,7 +18,7 @@
     value: '1'
     sysctl_set: true
     reload: true
-  when: inventory_hostname in groups['srs_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
 
 - name: set net.ipv4.conf.all.arp_announce to 2
@@ -27,7 +27,7 @@
     value: '2'
     sysctl_set: true
     reload: true
-  when: inventory_hostname in groups['srs_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
 
 - name: set net.ipv4.conf.all.rp_filter to 2
@@ -36,20 +36,20 @@
     value: '2'
     sysctl_set: true
     reload: true
-  when: inventory_hostname in groups['srs_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
 
-- name: configure static route for upf traffic on srs node
+- name: configure static route for upf traffic on srsran node
   shell: |
     ip route add {{ core.upf.ip_prefix }} via {{ core.amf.ip }}
-  when: (inventory_hostname in groups['srs_nodes'][0]) and (inventory_hostname not in groups['master_nodes'])
+  when: (inventory_hostname in groups['srsran_nodes'][0]) and (inventory_hostname not in groups['master_nodes'])
   become: true
   ignore_errors: yes
 
-- name: configure static route for srs traffic on aether node
+- name: configure static route for srsran traffic on aether node
   shell: |
-    ip route add {{ srs.docker.network.subnet }} via {{  hostvars[item]['ansible_default_ipv4']['address'] }}
-  with_items: "{{ play_hosts | intersect(groups['srs_nodes'][0]) | difference(groups['master_nodes']) }}"
+    ip route add {{ srsran.docker.network.subnet }} via {{  hostvars[item]['ansible_default_ipv4']['address'] }}
+  with_items: "{{ play_hosts | intersect(groups['srsran_nodes'][0]) | difference(groups['master_nodes']) }}"
   when: (inventory_hostname in groups['master_nodes'])
   become: true
   ignore_errors: yes
