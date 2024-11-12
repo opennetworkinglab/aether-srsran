@@ -22,4 +22,3 @@ core:
     iface: "access"
   amf:
     ip: "172.16.248.6"
-

@@ -22,4 +22,3 @@
   #  force_absent: true
   #when: inventory_hostname in groups['srsran_nodes'][0]
   #become: true
-

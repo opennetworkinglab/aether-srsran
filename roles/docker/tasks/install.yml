@@ -121,4 +121,3 @@
       chown {{ ansible_user }} /var/run/docker.sock
   when: inventory_hostname in groups['srsran_nodes']
   become: true
-
