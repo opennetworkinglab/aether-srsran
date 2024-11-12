@@ -51,4 +51,3 @@ srsran-uesim-stop:
 # run srsran-docker-install before running setup
 srsran-gnb-install: srsran-router-install srsran-gnb-start
 srsran-gnb-uninstall:  srsran-gnb-stop srsran-router-uninstall
-

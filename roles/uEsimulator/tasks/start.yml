@@ -30,7 +30,7 @@
   community.docker.docker_container:
     name: "rfsim5g-srsran-nr-ue"
     image: "{{ srsran.docker.container.ue_image }}"
-    networks: 
+    networks:
       - name: "{{ srsran.docker.network.name }}"
         # ipv4_address: "{{ srsran.ue.ip }}"
     volumes:

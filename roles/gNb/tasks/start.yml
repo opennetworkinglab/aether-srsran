@@ -25,7 +25,7 @@
   community.docker.docker_container:
     name: "rfsim5g-srsran-gnb"
     image: "{{ srsran.docker.container.gnb_image }}"
-    networks: 
+    networks:
       - name: "{{ srsran.docker.network.name }}"
         #ipv4_address: "{{ srsran.gnb.ip }}"
     volumes:
