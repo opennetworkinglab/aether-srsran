@@ -6,7 +6,7 @@ srsran:
       name: public_net
   simulation: true
   gnb:
-    conf_file: roles/gNb/templates/gnb_zmq.conf
+    conf_file: roles/gNB/templates/gnb_zmq.conf
     ip: "172.20.0.2"
 
 core:

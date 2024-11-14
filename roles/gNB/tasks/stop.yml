@@ -14,11 +14,10 @@
   when: inventory_hostname in groups['srsran_nodes']
   become: true
 
-  #TODO: Enable once we started using images from docker hub
-  #- name: remove {{ srsran.docker.container.gnb_image }} image
-  # community.docker.docker_image:
-  #  name: "{{ srsran.docker.container.gnb_image }}"
-  #  state: absent
-  #  force_absent: true
-  #when: inventory_hostname in groups['srsran_nodes']
-  #become: true
+- name: remove {{ srsran.docker.container.gnb_image }} image
+  community.docker.docker_image:
+    name: "{{ srsran.docker.container.gnb_image }}"
+    state: absent
+    force_absent: true
+  when: inventory_hostname in groups['srsran_nodes']
+  become: true

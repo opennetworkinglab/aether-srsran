@@ -32,7 +32,6 @@
     image: "{{ srsran.docker.container.ue_image }}"
     networks:
       - name: "{{ srsran.docker.network.name }}"
-        # ipv4_address: "{{ srsran.ue.ip }}"
     volumes:
       - /tmp/ue_zmq.conf:/opt/ue_zmq.conf
     devices:
@@ -49,15 +48,14 @@
 - pause:
     seconds: 10
 
-#TODO: use ue_ip_pool for configuring default route for UE
 - name: add default route for UE
   shell: |
-    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ip route add default via 172.250.0.1 dev tun_srsue
+    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ip route add default via {{ core.upf.default_upf.ue_ip_pool | ansible.utils.ipaddr('1') | ansible.utils.ipaddr('address')}} dev tun_srsue
   when: inventory_hostname in groups['srsran_nodes'][0]
 
 - name: run ping command to check if the UE is running and show output
   shell: |
-    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ping -c 5 192.168.250.1
+    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ping -c 5 {{ core.upf.default_upf.ip.core | ansible.utils.ipaddr('1') | ansible.utils.ipaddr('address')}}
   register: uEsimPingOutput
   when: inventory_hostname in groups['srsran_nodes'][0]
 

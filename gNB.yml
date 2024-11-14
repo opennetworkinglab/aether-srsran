@@ -1,6 +1,6 @@
 ---
 
-- name: provision gNb
+- name: provision gNB
   hosts: all
   gather_facts: true
 
@@ -8,4 +8,4 @@
     - "vars/main.yml"
 
   roles:
-    - gNb
+    - gNB

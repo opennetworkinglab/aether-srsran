@@ -35,10 +35,10 @@ srsran-router-uninstall:
 		--extra-vars "ROOT_DIR=$(ROOT_DIR)" --extra-vars $(EXTRA_VARS)
 
 srsran-gnb-start:
-	ansible-playbook -i $(HOSTS_INI_FILE) $(SRSRAN_ROOT_DIR)/gNb.yml --tags start \
+	ansible-playbook -i $(HOSTS_INI_FILE) $(SRSRAN_ROOT_DIR)/gNB.yml --tags start \
 		--extra-vars "ROOT_DIR=$(ROOT_DIR)" --extra-vars $(EXTRA_VARS)
 srsran-gnb-stop:
-	ansible-playbook -i $(HOSTS_INI_FILE) $(SRSRAN_ROOT_DIR)/gNb.yml --tags stop \
+	ansible-playbook -i $(HOSTS_INI_FILE) $(SRSRAN_ROOT_DIR)/gNB.yml --tags stop \
 		--extra-vars "ROOT_DIR=$(ROOT_DIR)" --extra-vars $(EXTRA_VARS)
 
 srsran-uesim-start:
