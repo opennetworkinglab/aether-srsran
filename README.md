@@ -36,7 +36,7 @@ To install srsRAN-gNB, follow these steps:
    - Set "conf_file" path for corresponding conf file for UeSimulation.
    - Run `make srsran-uesim-start`.
       - To stop the UE simulation, run `make srsran-uesim-stop`.
-5. Check the results:
+5. Run additional tests (ping):
    - Enter the UE Docker container using `docker exec -it rfsim5g-srsran-nr-ue bash`.
    - Use `ip netns exec ue1 ping -c 5 192.168.250.1` to view the success result.
 
