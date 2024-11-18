@@ -1,0 +1,14 @@
+srsran:
+  docker:
+    container:
+      gnb_image: aetherproject/srsran-gnb:rel-0.0.1
+    network:
+      name: public_net
+  simulation: true
+  gnb:
+    conf_file: roles/gNB/templates/gnb_zmq.conf
+    ip: "172.20.0.2"
+
+core:
+  amf:
+    ip: "172.16.248.6"

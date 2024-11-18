@@ -1,0 +1,12 @@
+srsran:
+  docker:
+    container:
+      ue_image: aetherproject/srsran-ue:rel-0.0.1
+    network:
+      name: public_net
+
+  simulation: true
+  gnb:
+    ip: "172.20.0.2"
+  ue:
+    conf_file: roles/uEsimulator/templates/ue_zmq.conf

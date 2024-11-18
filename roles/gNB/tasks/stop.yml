@@ -1,0 +1,23 @@
+---
+
+- name: delete {{ srsran.docker.container.gnb_image }} container
+  community.docker.docker_container:
+    name: "rfsim5g-srsran-gnb"
+    state: absent
+  when: inventory_hostname in groups['srsran_nodes']
+  become: true
+
+- name: remove /tmp/gnb_zmq.conf
+  file:
+    path: "/tmp/gnb_zmq.conf"
+    state: absent
+  when: inventory_hostname in groups['srsran_nodes']
+  become: true
+
+- name: remove {{ srsran.docker.container.gnb_image }} image
+  community.docker.docker_image:
+    name: "{{ srsran.docker.container.gnb_image }}"
+    state: absent
+    force_absent: true
+  when: inventory_hostname in groups['srsran_nodes']
+  become: true
