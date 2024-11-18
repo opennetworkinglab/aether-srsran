@@ -1,5 +1,17 @@
 ---
 
+- name: check if docker is installed
+  command: docker --version
+  register: docker_valid
+  ignore_errors: yes
+
+- name: print docker version output
+  debug:
+    var: docker_valid
+
+- meta: end_play
+  when: docker_valid.failed == false
+
 - name: update apt cache
   apt:
     update_cache: true

@@ -1,8 +1,8 @@
 srsran:
   docker:
     container:
-      gnb_image: srsran-gnb:latest
-      ue_image: srsran-nr-ue:latest
+      gnb_image: aetherproject/srsran-gnb:rel-0.0.1
+      ue_image: aetherproject/srsran-ue:rel-0.0.1
     network:
       data_iface: data
       name: public_net
