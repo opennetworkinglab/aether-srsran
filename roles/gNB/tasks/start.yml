@@ -27,7 +27,6 @@
     image: "{{ srsran.docker.container.gnb_image }}"
     networks:
       - name: "{{ srsran.docker.network.name }}"
-        #ipv4_address: "{{ srsran.gnb.ip }}"
     volumes:
       - /tmp/gnb_zmq.conf:/opt/gnb_zmq.conf
     state: started
