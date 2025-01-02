@@ -23,7 +23,7 @@
 
 - name: create {{ srsran.docker.container.gnb_image }} containers
   community.docker.docker_container:
-    name: "rfsim5g-srsran-gnb"
+    name: "srsran-gnb"
     image: "{{ srsran.docker.container.gnb_image }}"
     networks:
       - name: "{{ srsran.docker.network.name }}"
