@@ -2,7 +2,7 @@
 
 - name: delete {{ srsran.docker.container.gnb_image }} container
   community.docker.docker_container:
-    name: "rfsim5g-srsran-gnb"
+    name: "srsran-gnb"
     state: absent
   when: inventory_hostname in groups['srsran_nodes']
   become: true
