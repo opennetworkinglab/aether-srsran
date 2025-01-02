@@ -53,9 +53,13 @@
     docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ip route add default via {{ (core.upf.default_upf.ue_ip_pool.split('.'))[:3] | join('.') }}.{{ (core.upf.default_upf.ue_ip_pool.split('.')[3] | int) + 1 }} dev tun_srsue
   when: inventory_hostname in groups['srsran_nodes'][0]
 
+- set_fact:
+    ping_target: "{{ core.upf.core_subnet[:3] }}"
+  when inventory_hostname in groups['srsran_nodes']
+
 - name: run ping command to check if the UE is running and show output
   shell: |
-    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ping -c 5 {{ (core.upf.default_upf.ip.core.split('.'))[:3] | join('.') }}.{{ (core.upf.default_upf.ip.core.split('.')[3] | int) + 1 }}
+    docker exec rfsim5g-srsran-nr-ue ip netns exec ue1 ping -c 5 {{ ping_target }}
   register: uEsimPingOutput
   when: inventory_hostname in groups['srsran_nodes'][0]
 
