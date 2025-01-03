@@ -54,8 +54,8 @@
   when: inventory_hostname in groups['srsran_nodes'][0]
 
 - set_fact:
-    ping_target: "{{ core.upf.core_subnet[:3] }}"
-  when inventory_hostname in groups['srsran_nodes']
+    ping_target: "{{ core.upf.core_subnet | regex_replace('(/.*$)', '') }}"
+  when: inventory_hostname in groups['srsran_nodes'][0]
 
 - name: run ping command to check if the UE is running and show output
   shell: |
