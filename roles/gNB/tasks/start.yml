@@ -29,6 +29,7 @@
       - name: "{{ srsran.docker.network.name }}"
     volumes:
       - /tmp/gnb_zmq.conf:/opt/gnb_zmq.conf
+    privileged: true
     state: started
     detach: true
   when: inventory_hostname in groups['srsran_nodes']
