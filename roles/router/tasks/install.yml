@@ -39,6 +39,24 @@
   when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
 
+- name: set net.core.rmem_max to 24912805
+  ansible.posix.sysctl:
+    name: net.core.rmem_max
+    value: '24912805'
+    sysctl_set: true
+    reload: true
+  when: inventory_hostname in groups['srsran_nodes'][0]
+  become: true
+
+- name: set net.core.wmem_max to 24912805
+  ansible.posix.sysctl:
+    name: net.core.wmem_max
+    value: '24912805'
+    sysctl_set: true
+    reload: true
+  when: inventory_hostname in groups['srsran_nodes'][0]
+  become: true
+
 - name: configure static route for upf traffic on srsran node
   shell: |
     ip route add {{ core.upf.access_subnet | regex_replace('[0-9]+/24', '0/24') }} via {{ core.amf.ip }}
