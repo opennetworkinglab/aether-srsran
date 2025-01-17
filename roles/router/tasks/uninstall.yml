@@ -1,8 +1,5 @@
 ---
 
-- set_fact:
-    systemd_network_dir: /etc/systemd/network
-
 - name: "remove a static route on srsran host for {{ core.upf.access_subnet | regex_replace('[0-9]+/24', '0/24') }} via {{ core.amf.ip }}"
   shell: |
     ip route del {{ core.upf.access_subnet | regex_replace('[0-9]+/24', '0/24') }} via {{ core.amf.ip }}

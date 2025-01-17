@@ -1,8 +1,5 @@
 ---
 
-- set_fact:
-    systemd_network_dir: /etc/systemd/network
-
 - name: set net.ipv4.conf.all.arp_filter to 1
   ansible.posix.sysctl:
     name: net.ipv4.conf.all.arp_filter
@@ -34,24 +31,6 @@
   ansible.posix.sysctl:
     name: net.ipv4.conf.all.rp_filter
     value: '2'
-    sysctl_set: true
-    reload: true
-  when: inventory_hostname in groups['srsran_nodes'][0]
-  become: true
-
-- name: set net.core.rmem_max to 24912805
-  ansible.posix.sysctl:
-    name: net.core.rmem_max
-    value: '24912805'
-    sysctl_set: true
-    reload: true
-  when: inventory_hostname in groups['srsran_nodes'][0]
-  become: true
-
-- name: set net.core.wmem_max to 24912805
-  ansible.posix.sysctl:
-    name: net.core.wmem_max
-    value: '24912805'
     sysctl_set: true
     reload: true
   when: inventory_hostname in groups['srsran_nodes'][0]
