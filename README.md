@@ -1,7 +1,7 @@
 # srsRAN gNB
 
 The `aether-srsran` repository allows srsRAN (both physical and simulated) to work with the Aether SD-Core using Docker.
-It has been tested in simulation mode.
+It has been tested in simulation mode and with USRP X310 as the RAN hardware.
 
 To download the 'aether-srsran' repository, use the following command:
 ```
