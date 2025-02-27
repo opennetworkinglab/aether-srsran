@@ -10,6 +10,6 @@ srsran:
 core:
   upf:
     access_subnet: "192.168.252.1/24"
-    non_isol_N3_nw: false
+    multihop_gnb: false
   amf:
     ip: "172.16.248.6"
