@@ -1,12 +1,12 @@
 srsran:
   docker:
     container:
-      gnb_image: aetherproject/srsran-gnb:rel-0.0.1
+      gnb_image: aetherproject/srsran-gnb:rel-0.2.0
     network:
       name: public_net
   simulation: true
   gnb:
-    conf_file: roles/gNB/templates/gnb_zmq.conf
+    conf_file: roles/gNB/templates/gnb_zmq.yaml
     ip: "172.20.0.2"
 
 core:

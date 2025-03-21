@@ -13,11 +13,3 @@
     state: absent
   when: inventory_hostname in groups['srsran_nodes'][0]
   become: true
-
-- name: remove {{ srsran.docker.container.ue_image }} image
-  community.docker.docker_image:
-    name: "{{ srsran.docker.container.ue_image }}"
-    state: absent
-    force_absent: true
-  when: inventory_hostname in groups['srsran_nodes'][0]
-  become: true
