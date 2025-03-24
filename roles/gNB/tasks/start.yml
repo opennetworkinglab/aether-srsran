@@ -7,17 +7,17 @@
   when: inventory_hostname in groups['srsran_nodes']
   become: true
 
-- name: remove /tmp/gnb_zmq.conf
+- name: remove /tmp/gnb_config.yaml
   file:
-    path: "/tmp/gnb_zmq.conf"
+    path: "/tmp/gnb_config.yaml"
     state: absent
   when: inventory_hostname in groups['srsran_nodes']
   become: true
 
-- name : copy gnb config file to /tmp/gnb_zmq.conf
+- name : copy gnb config file to /tmp/gnb_config.yaml
   template:
     src: "{{ ROOT_DIR }}/{{ srsran.gnb.conf_file }}"
-    dest: /tmp/gnb_zmq.conf
+    dest: /tmp/gnb_config.yaml
   when: inventory_hostname in groups['srsran_nodes']
   become: true
 
@@ -28,9 +28,10 @@
     networks:
       - name: "{{ srsran.docker.network.name }}"
     volumes:
-      - /tmp/gnb_zmq.conf:/opt/gnb_zmq.conf
+      - /tmp/gnb_config.yaml:/opt/gnb_config.yaml
     privileged: true
     state: started
     detach: true
+    command: "gnb -c /opt/gnb_config.yaml"
   when: inventory_hostname in groups['srsran_nodes']
   become: true
