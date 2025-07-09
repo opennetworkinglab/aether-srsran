@@ -1,8 +1,10 @@
+gnb_id: "{{gnb_id}}"                         # Optional UINT (411). Sets the numerical ID associated with the gNB.
+
 cu_cp:
   amf:
     addr: "{{ core.amf.ip }}"                 # The address or hostname of the AMF.
     port: 38412
-    bind_addr: "{{srsran.gnb.ip}}"            # A local IP that the gNB binds to for traffic from the AMF.
+    bind_addr: "{{gnb_ip}}"            # A local IP that the gNB binds to for traffic from the AMF.
     supported_tracking_areas:
       - tac: 1
         plmn_list:

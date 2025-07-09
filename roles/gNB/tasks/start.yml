@@ -1,5 +1,10 @@
 ---
 
+- name: check if servers and config server length are equal
+  fail:
+    msg: "Number of srsran nodes and servers in config file are not equal"
+  when: srsran.servers|length != groups['srsran_nodes']|length
+
 - name: pull {{ srsran.docker.container.gnb_image }} image
   community.docker.docker_image:
     name: "{{ srsran.docker.container.gnb_image }}"
@@ -16,8 +21,12 @@
 
 - name : copy gnb config file to /tmp/gnb_config.yaml
   template:
-    src: "{{ ROOT_DIR }}/{{ srsran.gnb.conf_file }}"
+    src: "{{ ROOT_DIR }}/{{ srsran.servers[server_index | int].gnb_conf }}"
     dest: /tmp/gnb_config.yaml
+  vars:
+    server_index: "{{ groups['srsran_nodes'].index(inventory_hostname) }}"
+    gnb_ip: "{{ srsran.servers[server_index | int].gnb_ip }}"
+    gnb_id: "{{ (groups['srsran_nodes'].index(inventory_hostname) | int) + 1000 }}"
   when: inventory_hostname in groups['srsran_nodes']
   become: true
 

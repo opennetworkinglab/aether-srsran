@@ -1,5 +1,10 @@
 ---
 
+- name: check if servers and config server length are equal
+  fail:
+    msg: "Number of srsran nodes and servers in config file are not equal"
+  when: srsran.servers|length != groups['srsran_nodes']|length
+
 - name: delete {{ srsran.docker.container.gnb_image }} container
   community.docker.docker_container:
     name: "srsran-gnb"

@@ -1,17 +1,22 @@
 ---
 
+- name: check if servers and config server length are equal
+  fail:
+    msg: "Number of srsran nodes and servers in config file are not equal"
+  when: srsran.servers|length != groups['srsran_nodes']|length
+
 - name: delete {{ srsran.docker.container.ue_image }} container
   community.docker.docker_container:
     name: "rfsim5g-srsran-nr-ue"
     state: absent
-  when: inventory_hostname in groups['srsran_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
 
 - name: remove /tmp/ue_zmq.conf
   file:
     path: "/tmp/ue_zmq.conf"
     state: absent
-  when: inventory_hostname in groups['srsran_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
 
 - name: remove {{ srsran.docker.container.ue_image }} image
@@ -19,5 +24,5 @@
     name: "{{ srsran.docker.container.ue_image }}"
     state: absent
     force_absent: true
-  when: inventory_hostname in groups['srsran_nodes'][0]
+  when: inventory_hostname in groups['srsran_nodes']
   become: true
