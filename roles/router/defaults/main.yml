@@ -1,9 +1,7 @@
 srsran:
   docker:
     network:
-      data_iface: data
       name: public_net
-      subnet: "172.20.0.0/16"
       bridge:
         name: rfsim5g-public
 

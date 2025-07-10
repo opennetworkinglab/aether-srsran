@@ -5,9 +5,6 @@ srsran:
     network:
       name: public_net
   simulation: true
-  gnb:
-    conf_file: roles/gNB/templates/gnb_zmq.yaml
-    ip: "172.20.0.2"
 
 core:
   amf:
