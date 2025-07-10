@@ -2,7 +2,7 @@
 
 - name: check if servers and config server length are equal
   fail:
-    msg: "Mismatch in No of servers and srsran nodes: {{ srsran.servers|length }} vs {{ groups['srsran_nodes']|length }}"
+    msg: "Mismatch in number of servers and srsran nodes: {{ srsran.servers|length }} vs {{ groups['srsran_nodes']|length }}"
   when: srsran.servers|length != groups['srsran_nodes']|length
 
 - name: delete {{ srsran.docker.container.gnb_image }} container
