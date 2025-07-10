@@ -2,7 +2,7 @@
 
 - name: check if servers and config server length are equal
   fail:
-    msg: "Number of srsran nodes and servers in config file are not equal"
+    msg: "Mismatch in No of servers and srsran nodes: {{ srsran.servers|length }} vs {{ groups['srsran_nodes']|length }}"
   when: srsran.servers|length != groups['srsran_nodes']|length
 
 - name: set net.ipv4.conf.all.arp_filter to 1
