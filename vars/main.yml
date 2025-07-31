@@ -1,20 +1,16 @@
 srsran:
   docker:
     container:
-      gnb_image: aetherproject/srsran-gnb:rel-0.2.0
-      ue_image: aetherproject/srsran-ue:rel-0.2.0
+      gnb_image: aetherproject/srsran-gnb:rel-0.4.0
+      ue_image: aetherproject/srsran-ue:rel-0.4.0
     network:
-      data_iface: data
-      name: public_net
-      subnet: "172.20.0.0/16"
-      bridge:
-        name: rfsim5g-public
+      name: host
   simulation: true
-  gnb:
-    conf_file: gnb_zmq.yaml
-    ip: "172.20.0.2"
-  ue:
-    conf_file: ue_zmq.conf
+  servers:
+    0:
+      gnb_ip: "10.76.28.115"            # Host interface used for the gNB
+      gnb_conf: deps/srsran/roles/gNB/templates/gnb_zmq.yaml
+      ue_conf: deps/srsran/roles/uEsimulator/templates/ue_zmq.conf
 
 core:
   upf:

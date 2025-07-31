@@ -2,8 +2,6 @@ srsran:
   docker:
     network:
       name: public_net
-      bridge:
-        name: rfsim5g-public
 
 core:
   upf:
