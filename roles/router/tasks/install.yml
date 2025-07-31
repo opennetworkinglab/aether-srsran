@@ -47,4 +47,3 @@
   when: (inventory_hostname in groups['srsran_nodes']) and (inventory_hostname not in groups['master_nodes']) and core.upf.multihop_gnb == false
   become: true
   ignore_errors: yes
-

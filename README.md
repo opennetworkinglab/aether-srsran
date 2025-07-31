@@ -14,17 +14,14 @@ To install srsRAN-gNB, follow these steps:
 1. Install Docker by running `make srsran-docker-install`.
    Note: If docker already installed then ignore this step
 2. Configure the network for srsRAN-gNB:
-   - Set the "data_iface" parameter to the network interface name of the machine which runs gNB.
    - Set "network.name" to the name of the Docker network to be created.
-   - Set "network.bridge.name" to the name of the interface to be created.
-   - Set "subnet", which should correspond to the "ran_subnet" of 5GC (SD-Core) or the machine's subnet.
    - run `srsran-router-install` to create the network.
       - To remove the network, run `srsran-router-uninstall`.
 3. Start the srsRAN-gNB Docker containers:
    - Set the container image "gnb_image" for gNB.
    - Set "simulation" to true to run in simulation mode.
    - Set "conf_file" path for corresponding conf file for gNB i.e., for simulation.
-   - Set "ip" for gNB container, it should in same subnet as network.
+   - Set "ip" for gNB container.
    - Set "core.amf.ip" with IP address of Aether core.
    - Start docker container using `make srsran-gnb-install`.
       - To stop the gNB, run `make srsran-gnb-stop`.
