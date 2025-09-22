@@ -5,6 +5,16 @@
     msg: "Mismatch in number of servers and srsran nodes: {{ srsran.servers|length }} vs {{ groups['srsran_nodes']|length }}"
   when: srsran.servers|length != groups['srsran_nodes']|length
 
+# prep Ubuntu to support srsRAN gNB in DPDK-mode
+- name: set net.core.wmem_max to 24912805
+  ansible.posix.sysctl:
+    name: net.core.wmem_max
+    value: '24912805'
+    sysctl_set: true
+    reload: true
+  when: inventory_hostname in groups['srsran_nodes']
+  become: true
+
 - name: pull {{ srsran.docker.container.gnb_image }} image
   community.docker.docker_image:
     name: "{{ srsran.docker.container.gnb_image }}"
@@ -38,6 +48,9 @@
       - name: "{{ srsran.docker.network.name }}"
     volumes:
       - /tmp/gnb_config.yaml:/opt/gnb_config.yaml
+      - /dev/hugepages:/dev/hugepages
+    devices:
+      - /dev/vfio:/dev/vfio
     privileged: true
     state: started
     detach: true
