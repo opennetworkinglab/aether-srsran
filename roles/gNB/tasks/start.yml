@@ -52,6 +52,7 @@
     devices:
       - /dev/vfio:/dev/vfio
     privileged: true
+    restart_policy: unless-stopped
     state: started
     detach: true
     command: "gnb -c /opt/gnb_config.yaml"
