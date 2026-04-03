@@ -1,7 +1,7 @@
 srsran:
   docker:
     container:
-      gnb_image: aetherproject/srsran-gnb:rel-0.2.0
+      gnb_image: aetherproject/srsran-gnb:rel-0.4.0
     network:
       name: public_net
   simulation: true
