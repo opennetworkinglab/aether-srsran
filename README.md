@@ -15,22 +15,22 @@ To install srsRAN-gNB, follow these steps:
    Note: If docker already installed then ignore this step
 2. Configure the network for srsRAN-gNB:
    - Set "network.name" to the name of the Docker network to be created.
-   - run `srsran-router-install` to create the network.
-      - To remove the network, run `srsran-router-uninstall`.
+   - run `make srsran-router-install` to create the network.
+   - To remove the network, run `make srsran-router-uninstall`.
 3. Start the srsRAN-gNB Docker containers:
    - Set the container image "gnb_image" for gNB.
    - Set "simulation" to true to run in simulation mode.
-   - Set "conf_file" path for corresponding conf file for gNB i.e., for simulation.
-   - Set "ip" for gNB container.
+   - Set "gnb_conf" path for corresponding gNB config file.
+   - Set "gnb_ip" for gNB host/container connectivity.
    - Set "core.amf.ip" with IP address of Aether core.
    - Start docker container using `make srsran-gnb-install`.
       - To stop the gNB, run `make srsran-gnb-stop`.
 4. Start the UE simulation:
    - Set the container image "ue_image" for UeSimulation.
    - Set "network" same as the network name used for gNB.
-   - Set "gnb.ip" with the IP address of the gNB container.
+   - Set "gnb_ip" with the IP address of the gNB host/container.
    - Set "simulation" to true to run in simulation mode.
-   - Set "conf_file" path for corresponding conf file for UeSimulation.
+   - Set "ue_conf" path for corresponding UE simulation config file.
    - Run `make srsran-uesim-start`.
       - To stop the UE simulation, run `make srsran-uesim-stop`.
 5. Run additional tests (ping):
@@ -38,7 +38,7 @@ To install srsRAN-gNB, follow these steps:
    - Use `ip netns exec ue1 ping -c 5 192.168.250.1` to view the success result.
 
 ### One-Step Installation
-To install srsRAN gNB in one go, run `make aether-srsran-gnb-install`.
+To install srsRAN gNB in one go, run `make srsran-gnb-install`.
 
 ### Uninstall
-To uninstall srsRAN gNB, run `make aether-srsran-gnb-uninstall`.
+To uninstall srsRAN gNB, run `make srsran-gnb-uninstall`.

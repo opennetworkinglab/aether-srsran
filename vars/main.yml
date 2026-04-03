@@ -9,8 +9,8 @@ srsran:
   servers:
     0:
       gnb_ip: "10.76.28.115"            # Host interface used for the gNB
-      gnb_conf: deps/srsran/roles/gNB/templates/gnb_zmq.yaml
-      ue_conf: deps/srsran/roles/uEsimulator/templates/ue_zmq.conf
+      gnb_conf: roles/gNB/templates/gnb_zmq.yaml
+      ue_conf: roles/uEsimulator/templates/ue_zmq.conf
 
 core:
   upf:
